@@ -1,38 +1,218 @@
-.App {
-  text-align: center;
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.bg_color {
+  background-color: #a9a9a961;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+img.center-fit {
+  width: 100%;
+  height: 100vh;
+ 
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.inputform1 {
+  width: 284px;
+  margin-top: 216px;
 }
+.inputform2 {
+  width: 290px;
+}
+.formcheckbox {
+  margin-top: 2px;
+  font-weight: 200;
+}
+.formforgotpassword {
+  font-weight: 200;
+  margin-top: 0px;
+  font-size: 17px;
+}
+.custom_btn{
+  background-color: #5151f7b0;
+  border: none;
+  width: 293px;
+  padding:8px 0px;
+  color: #fff;
+  border-radius: 8px;
+}
+.formsignup {
+  margin-top: 150px;
+    font-weight: 200;
+}
+.log_content{
+  max-width: 300px;
+  margin:auto;
+}
+/* .contain{
+  height:100vh;
+  background-color: lightgray;
+  position:relative;
+  max-width: 1400px;
+} */
+.mainHeader{
+  position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 99;
+    box-shadow: -13px 0px 3px 2px #00000059;
+}
+.mainSidebar {
+  position: fixed;
+ 
+  /* border-radius: 2px; */
+  margin-top: 56px;
+  border-radius: 9px;
+}
+.contain .sidebar{
+ 
+  background-color:#00000094;
+  height:100vh;
+  z-index:10;
+  box-shadow:0px 15px 30px rgba(0,0,0,0.1);
+  margin-left: 0%;
+  padding: 1rem 0;
+  padding-left:20px;
+}
+a.logout {
+  color: black;
+  text-decoration: none;
+}
+/* .sidebar span:hover{
+  background-color:white;
+  color:#fff;
+  height: fit-content;
+  transition:all 0.5s;
+   
+} */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.mainBody{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+.mainContent {
+  margin-left: 284px;
+  margin-top: 90px;
+}
+.navbar1 {
+  background-color: darkcyan;
+}
+.link-dark {
   color: white;
+  text-decoration: none;
+}
+.u_ser {
+  margin-top: 10px;
+  margin-left: 11px;
+}
+.pro_duct {
+  margin-top: 9px;
+  margin-left: 8px;
 }
 
-.App-link {
-  color: #61dafb;
+.pro_duct :hover{
+  color: rgb(138, 58, 58);
+}
+.dash_board {
+  margin-left: 7px;
 }
 
-@keyframes App-logo-spin {
-  from {
+.dash_board :hover{
+  color: rgb(138, 58, 58);;
+}
+.u_ser :hover{
+  color: rgb(138, 58, 58);;
+}
+.card1 {
+  width: 204px;
+  height: 125px;
+  margin-top: 54px;
+}
+.card2 {
+  width: 204px;
+  height: 128px;
+  margin-top: -124px;
+  margin-left: 360px;
+}
+.spanall {
+color: #fff;
+  font-size: 19px;
+  font-weight: 500;
+}
+.dash_board {
+  margin-left: 12px;
+  margin-top: 28px;
+}
+span.dashboardicon {
+  color: white;
+  margin-right: 3px;
+}
+span.usericon {
+  color: #fff;
+}
+span.producticon {
+  color: #fff;
+}
+.navbar1 {
+  background-color: white;
+  box-shadow: -13px 0px 3px 2px #00000059;
+
+ 
+}
+.cardbady {
+  box-shadow: -3px 1px 20px -3px #00000059;
+}
+.thumImg img{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+  background-color: darkgrey;
+}
+.custom_scroll{
+  height: 98vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.image img {
+  height: 65px;
+  border-radius: 100%;
+  background-color: darkgray;
+}
+.edit_btn button.btn.btn-primary.custom_btn {
+  width: 81px;
+}
+.delete_btn button.btn.btn-primary.custom_btn {
+  width: 81px;
+}
+.search_user {
+  width: 228px;
+  margin-left: 426px;
+  margin-top: -50px;
+  margin-bottom: 17px;
+}
+.Add_btn button.btn.btn-primary.custom_btn {
+  width: 90px;
+  margin-left: 989px;
+  margin-top: -87px;
+}
+.errorm {
+  color: red;
+}
+@keyframes spinner {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
+}
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+ margin-left: 50%;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #383636; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
 }
