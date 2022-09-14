@@ -70,3 +70,21 @@ export const createUser = (data: any) => {
     console.log("error ==> ", error);
   }
 };
+
+export const getAllProducts = (searchproduct: string) => {
+  try {
+    return axios
+      .get(`https://dummyjson.com/products/search?q=${searchproduct}`)
+      .then((response) => {
+        return response;
+      });
+  } catch (error) {
+    console.log(error);
+  }
+  // return axios
+  //   .get(`https://dummyjson.com/products/search?q=${searchproduct}`)
+  //   .then((Response) => {
+  //     return Response;
+  //   });
+};
+// `https://dummyjson.com/products/search?q=${searchproduct}`;

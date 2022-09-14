@@ -13,7 +13,7 @@ const DashboardLayout = ({ children }: IProps) => {
         <div className="col-lg-2 px-0">
           <Sidebar />
         </div>
-        <div className="col-lg-10 custom_scroll px-0">
+        <div className="col-lg-10  px-0">
           <Navbar />
           <div>{children}</div>
         </div>

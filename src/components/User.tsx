@@ -3,10 +3,10 @@ import { Button, Container, Modal, Offcanvas } from "react-bootstrap";
 import { createUser, getUsers } from "../services/ApiCalls";
 import DashboardLayout from "./DashboardLayout";
 import { Formik, Form, Field } from "formik";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import Loading from "../common/Loading";
-
 import * as Yup from "yup";
+import swal from "sweetalert";
 
 interface users {
   id?: number | null;
@@ -44,8 +44,8 @@ export default function User() {
   const gettotalUsers = async (searchUser: any) => {
     setIsLoading(true);
     let ans = await getUsers(searchUser);
-
     setUsers(ans?.data.users);
+    setIsLoading(false);
   };
   useEffect(() => {
     gettotalUsers(searchUser);
@@ -55,6 +55,7 @@ export default function User() {
   const deleteUser = (item: any) => {
     let deletedUser = users.filter((value) => value.id != item.id);
     setUsers(deletedUser);
+    toast("deleted Successfully");
   };
 
   /*************for opening offcanvas************ */
@@ -98,15 +99,14 @@ export default function User() {
     let index = newArr.findIndex((item) => item.id === values.id);
     console.log("index =====>", index);
 
-    const newObj = { ...users[index], ...values };
-    newArr[index] = newObj;
-    console.log("index===>", index);
-    console.log("newArr===>", newArr);
+    newArr[index] = { ...newArr[index], ...values };
+
     setUsers(newArr);
   };
 
   return (
     <DashboardLayout>
+      {isLoading && <Loading />}
       <div className="px-3">
         <h1 className="mt-5">Users</h1>
         <div className="form-outline">
@@ -156,8 +156,7 @@ export default function User() {
                 <th scope="col">maidenName</th>
                 <th scope="col">age</th>
                 <th scope="col">email</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -181,7 +180,7 @@ export default function User() {
                       {" "}
                       <div className="edit_btn">
                         <button
-                          className="btn btn-primary custom_btn"
+                          className="btn btn-primary custom_btn btn-sm"
                           onClick={() => {
                             setEditUser({ check: true, data: item });
                             handleShoww();
@@ -194,7 +193,7 @@ export default function User() {
                     <td>
                       <div className="delete_btn">
                         <button
-                          className="btn btn-primary custom_btn"
+                          className="btn btn-primary custom_btn btn-sm"
                           onClick={() => {
                             setCheckDelete(item);
                             setOpenModal(true);
@@ -368,7 +367,7 @@ export default function User() {
             </div>
           </div>
         </Modal>
-        <Loading />
+        <ToastContainer />
       </div>
     </DashboardLayout>
   );
