@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Loading from "../common/Loading";
 import * as Yup from "yup";
 import swal from "sweetalert";
+import Pagination from "./Pagination";
 
 interface users {
   id?: number | null;
@@ -24,6 +25,11 @@ export default function User() {
   const [searchUser, setSearchUser] = useState("");
   const [adddUser, setAddUser] = useState<any>({});
   const [openModal, setOpenModal] = useState(false);
+  const [showPerPage, setShowPerPage] = useState(10);
+  const [pagination, setPagination] = useState({
+    start: 0,
+    end: showPerPage,
+  });
   let [checkdelete, setCheckDelete] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [editUser, setEditUser] = useState({
@@ -97,11 +103,13 @@ export default function User() {
   const EditUser = (values: any) => {
     let newArr = [...users];
     let index = newArr.findIndex((item) => item.id === values.id);
-    console.log("index =====>", index);
-
-    newArr[index] = { ...newArr[index], ...values };
+    const newObj = { ...users[index], ...values };
+    newArr[index] = newObj;
 
     setUsers(newArr);
+  };
+  const onPaginationChange = (start: any, end: any) => {
+    setPagination({ start: start, end: end });
   };
 
   return (
@@ -160,52 +168,51 @@ export default function User() {
               </tr>
             </thead>
             <tbody>
-              {users.map((item: any) => {
-                return (
-                  <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td className="image">
-                      {typeof item.image === "string" ? (
-                        <img src={item.image}></img>
-                      ) : (
-                        ""
-                      )}
-                    </td>
-                    <td scope="row">{item.firstName}</td>
-                    <td scope="row">{item.lastName}</td>
-                    <td scope="row">{item.maidenName}</td>
-                    <td scope="row">{item.age}</td>
-                    <td scope="row">{item.email}</td>
-                    <td>
-                      {" "}
-                      <div className="edit_btn">
-                        <button
-                          className="btn btn-primary custom_btn btn-sm"
+              {users && users.length > 0 ? (
+                users
+                  .slice(pagination.start, pagination.end)
+                  .map((item: any) => (
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td className="image">
+                        {typeof item.image === "string" ? (
+                          <img src={item.image}></img>
+                        ) : (
+                          ""
+                        )}
+                      </td>
+                      <td scope="row">{item.firstName}</td>
+                      <td scope="row">{item.lastName}</td>
+                      <td scope="row">{item.maidenName}</td>
+                      <td scope="row">{item.age}</td>
+                      <td scope="row">{item.email}</td>
+                      <td className="editdelete">
+                        <i
+                          className="fa fa-edit"
                           onClick={() => {
                             setEditUser({ check: true, data: item });
                             handleShoww();
                           }}
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="delete_btn">
-                        <button
-                          className="btn btn-primary custom_btn btn-sm"
+                        ></i>
+
+                        <i
+                          className="fa fa-trash"
+                          aria-hidden="true"
                           onClick={() => {
                             setCheckDelete(item);
                             setOpenModal(true);
                           }}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                        ></i>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <>
+                  <div className="no_data_found">
+                    <strong>No data found</strong>
+                  </div>
+                </>
+              )}
             </tbody>
           </table>
         </Container>
@@ -369,6 +376,11 @@ export default function User() {
         </Modal>
         <ToastContainer />
       </div>
+      <Pagination
+        showPerPage={showPerPage}
+        onPaginationChange={onPaginationChange}
+        total={users.length}
+      />
     </DashboardLayout>
   );
 }

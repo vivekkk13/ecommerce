@@ -46,7 +46,11 @@ export const getNumberOfProductslist = () => {
 export const getUsers = (searchUser: any) => {
   try {
     return axios
-      .get(`https://dummyjson.com/users/search?q=${searchUser}`)
+      .get(`https://dummyjson.com/users/search?q=${searchUser}`, {
+        params: {
+          limit: 1000,
+        },
+      })
       .then((response) => {
         return response;
       });
@@ -74,7 +78,11 @@ export const createUser = (data: any) => {
 export const getAllProducts = (searchproduct: string) => {
   try {
     return axios
-      .get(`https://dummyjson.com/products/search?q=${searchproduct}`)
+      .get(`https://dummyjson.com/products/search?q=${searchproduct}`, {
+        params: {
+          limit: 100,
+        },
+      })
       .then((response) => {
         return response;
       });

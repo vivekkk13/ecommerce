@@ -295,3 +295,35 @@ button.card-delete {
   background-color: #fff;
   border-radius: 5px;
 }
+
+
+.prev_page button.btn.btn-outline-secondary.custom_btn {
+    width: 86px;
+    margin-left: 134px;
+    margin-bottom: 33px;
+    margin-top: 9px;
+}
+.Next_page button.btn.btn-outline-secondary.custom_btn {
+  width: 84px;
+  margin-left: 984px;
+  margin-top: -136px;
+}
+ul.pagination {
+  margin-left: 298px;
+}
+i.fa.fa-edit {
+  margin-right: 11px;
+  font-size: 23px;
+  color: #00000096;
+}
+i.fa.fa-edit :hover{
+  cursor: pointer;
+}
+
+i.fa.fa-trash {
+  font-size: 18px;
+  color: #00000096;
+}
+.editdelete :hover{
+  cursor: pointer;
+}

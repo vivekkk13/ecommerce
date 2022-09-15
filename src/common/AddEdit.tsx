@@ -17,7 +17,7 @@ export const AddEdit = ({
   editProduct,
 }: Iprops) => {
   const [formValues, setFormValues] = useState({
-    title: editProduct ? editProduct.brand : "",
+    title: "",
     brand: "",
     price: "",
   });
@@ -39,7 +39,7 @@ export const AddEdit = ({
       let index = newArr.findIndex((item) => item.id === editProduct.id);
       console.log("index =====>", index);
 
-      newArr[index] = { ...formValues };
+      newArr[index] = { ...newArr[index], ...formValues };
       console.log("newarrr=>", newArr);
 
       setProducts(newArr);

@@ -5,6 +5,7 @@ import DashboardLayout from "./DashboardLayout";
 import Loading from "../common/Loading";
 import { AddEdit } from "../common/AddEdit";
 import { DeleteProduct } from "../common/DeleteProduct";
+import Pagination from "./Pagination";
 
 interface productListType {
   id?: number | null;
@@ -16,13 +17,18 @@ interface productListType {
   brand: string;
 }
 export const Products = () => {
-  const [products, setProducts] = useState<productListType[]>();
+  const [products, setProducts] = useState<productListType[]>([]);
   const [searchproduct, setSearchProduct] = useState("");
   const [isLoader, setLoader] = useState(false);
   const [openOffCanvas, setOpenOffCanvas] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [deleteProduct, setDeleteProduct] = useState<any>("");
   const [editProduct, setEditProduct] = useState<any>("");
+  const [showPerPage, setShowPerPage] = useState(10);
+  const [pagination, setPagination] = useState({
+    start: 0,
+    end: showPerPage,
+  });
 
   /***************** for get all products************** */
   const allProducts = async (searchproduct: string) => {
@@ -47,6 +53,9 @@ export const Products = () => {
   const handleEditProduct = (product: any) => {
     setEditProduct(product);
     setOpenOffCanvas(true);
+  };
+  const onPaginationChange = (start: any, end: any) => {
+    setPagination({ start: start, end: end });
   };
 
   return (
@@ -80,41 +89,43 @@ export const Products = () => {
           <Container>
             <Row className="g-4">
               {products && products.length > 0 ? (
-                products.map((item, id) => (
-                  <Col md={4}>
-                    <div className="shadow-lg p-3 mb-5 bg-white rounded">
-                      <div className="card">
-                        <div className="card-body">
-                          <div className="delete_edit_btn">
-                            <button
-                              className="card-edit"
-                              onClick={() => {
-                                handleEditProduct(item);
-                              }}
-                            >
-                              edit
-                            </button>
-                            <button
-                              className="card-delete"
-                              onClick={() => {
-                                setDeleteProduct(item);
-                                setOpenModal(true);
-                              }}
-                            >
-                              Delete
-                            </button>
+                products
+                  .slice(pagination.start, pagination.end)
+                  .map((item, id) => (
+                    <Col md={4}>
+                      <div className="shadow-lg p-3 mb-5 bg-white rounded">
+                        <div className="card">
+                          <div className="card-body">
+                            <div className="delete_edit_btn">
+                              <button
+                                className="card-edit"
+                                onClick={() => {
+                                  handleEditProduct(item);
+                                }}
+                              >
+                                edit
+                              </button>
+                              <button
+                                className="card-delete"
+                                onClick={() => {
+                                  setDeleteProduct(item);
+                                  setOpenModal(true);
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                            <div className="thumImg">
+                              <img src={item.thumbnail} />
+                            </div>
+                            <h5 className="card-title">{item.title}</h5>
+                            <p className="card-text">{item.brand}</p>
+                            <p className="card-text">${item.price}</p>
                           </div>
-                          <div className="thumImg">
-                            <img src={item.thumbnail} />
-                          </div>
-                          <h5 className="card-title">{item.title}</h5>
-                          <p className="card-text">{item.brand}</p>
-                          <p className="card-text">${item.price}</p>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                ))
+                    </Col>
+                  ))
               ) : (
                 <>
                   <div className="">No Data Found</div>
@@ -124,6 +135,11 @@ export const Products = () => {
           </Container>
         </div>
       </div>
+      <Pagination
+        showPerPage={showPerPage}
+        onPaginationChange={onPaginationChange}
+        total={products.length}
+      />
       <AddEdit
         openOffCanvas={openOffCanvas}
         setOpenOffCanvas={setOpenOffCanvas}
